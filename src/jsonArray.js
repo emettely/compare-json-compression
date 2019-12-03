@@ -4,7 +4,8 @@ const {
   printMemoryUsage,
   printFileSizeInMB,
   fileName,
-  outPath
+  outPath,
+  printExecTime
 } = require("./utils");
 
 const largeJson = require(fileName);
@@ -31,3 +32,4 @@ const parsed = JSON.parse(dataString);
 printSize(parsed, "Parse");
 
 printMemoryUsage();
+printExecTime();

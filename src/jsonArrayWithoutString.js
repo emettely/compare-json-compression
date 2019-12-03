@@ -1,15 +1,15 @@
 const fs = require("fs");
-var TSV = require("tsv");
 const {
   printSize,
   printMemoryUsage,
   printFileSizeInMB,
   fileName,
-  outPath,
-  printExecTime
+  outPath
 } = require("./utils");
+
 const largeJson = require(fileName);
-const path = outPath("data.tsv");
+const path = outPath("dataArrayWithoutString");
+
 const doc = [];
 largeJson.response.results.forEach(r => {
   r.alternatives[0].words.forEach(w => doc.push(w));
@@ -17,14 +17,14 @@ largeJson.response.results.forEach(r => {
 
 printSize(doc, "Just words In memory");
 
-var data = TSV.stringify(doc);
-printSize(data, "TSV");
+const data = doc.map(r => [r.startTime, r.endTime, r.word]);
+
+printSize(data, "JSON array");
 
 fs.writeFileSync(path, data);
 printFileSizeInMB(path);
 
-const doc_2 = TSV.parse(data);
-printSize(doc_2, "TSV to JSON:");
+const hugeString = fs.readFileSync(path, "utf8");
+printSize(hugeString, "read from File, then you'd have to parse anyway... :(");
 
 printMemoryUsage();
-printExecTime();

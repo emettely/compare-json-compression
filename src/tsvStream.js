@@ -6,14 +6,15 @@ const {
   printMemoryUsage,
   printFileSizeInMB,
   fileName,
-  outPath
+  outPath,
+  printExecTime
 } = require("./utils");
 
 const path = outPath("dataStream.tsv");
-const readStream = fs.createReadStream(fileName);
+const readStream = fs.createReadStream("data/one_hour.json");
 const parseStream = json.createParseStream();
 
-parseStream.on("data", function(pojo) {
+parseStream.on("data", pojo => {
   // => receive reconstructed POJO
   const doc = [];
   pojo.response.results.forEach(r => {
@@ -32,8 +33,9 @@ parseStream.on("data", function(pojo) {
 
   const doc_2 = TSV.parse(data);
   printSize(doc_2, "decompressed data:");
+
+  printMemoryUsage();
+  printExecTime();
 });
 
 readStream.pipe(parseStream);
-
-printMemoryUsage();

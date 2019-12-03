@@ -1,4 +1,16 @@
 const fs = require("fs");
+var start = process.hrtime();
+
+// https://stackoverflow.com/questions/10617070/how-to-measure-execution-time-of-javascript-code-with-callbacks
+const printExecTime = () => {
+  var precision = 3; // 3 decimal places
+  var elapsed = process.hrtime(start)[1] / 1000000; // divide by a million to get nano to milli
+  console.log("==========Elapsed Time==========");
+  console.log(
+    process.hrtime(start)[0] + " s, " + elapsed.toFixed(precision) + " ms"
+  ); // print message + time
+  start = process.hrtime(); // reset the timer
+};
 
 const bytesToMB = bytes => {
   return Math.round((bytes / 1024 / 1024) * 100) / 100;
@@ -67,3 +79,4 @@ exports.printMemoryUsage = printMemoryUsage;
 exports.printFileSizeInMB = printFileSizeInMB;
 exports.outPath = outPath;
 exports.printSize = printSize;
+exports.printExecTime = printExecTime;
