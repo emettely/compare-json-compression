@@ -18,10 +18,13 @@ Doesn't work
 
 ### Stream (Big-JSON)
 
+### Gzip
+
 ## Outcome
 
-TSV is faster and will reduce the file size slightly more.
-If the file size of wordsOnly.json is 0.78 MB - the compression rate is 60% for TSV, 47% for JsonArray. They are similar in terms of needing to parse (with `TSV.parse(data)` and `JSON.parse(data)`) although one requires an extra dependency (TSV) but the other takes a fraction more time to parse.
+Comparing TSV, Gzip and JSON Array using the 0.78 MB file of `wordsOnly.json`, Gzip came up on top.
+
+The compression rate is 60% for TSV, 47% for JsonArray, 85% for Gzip. They are similar in terms of needing to parse (with `TSV.parse(data)`, `JSON.parse(data)`, `const data = zlib.gunzip(gzipData)` + `JSON.parse(data)`). TSV requires an additional library (TSV) to do the parsing, whereas JSON and zlib comes with JS / NodeJS. The performance for Gzip, although it does need more memory to do the processing, is the fastest of the lot.
 
 TSVs are easy to reason about enough.
 
