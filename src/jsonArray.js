@@ -19,17 +19,15 @@ largeJson.response.results.forEach(r => {
 printSize(doc, "Just words In memory");
 
 const data = doc.map(r => [r.startTime, r.endTime, r.word]);
-
-printSize(data, "JSON array");
-
 const dataString = JSON.stringify(data);
+
 printSize(dataString, "Stringified");
 
 fs.writeFileSync(path, dataString);
 printFileSizeInMB(path);
 
 const parsed = JSON.parse(dataString);
-printSize(parsed, "Parse");
+printSize(parsed, "String to JSON");
 
 printMemoryUsage();
 printExecTime();
