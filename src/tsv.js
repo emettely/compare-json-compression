@@ -14,15 +14,15 @@ largeJson.response.results.forEach(r => {
   r.alternatives[0].words.forEach(w => doc.push(w));
 });
 
-printSize(doc);
+printSize(doc, "Just words In memory");
 
 var data = TSV.stringify(doc);
-printSize(data, "compressed data:");
+printSize(data, "TSV");
 
 fs.writeFileSync(path, data);
 printFileSizeInMB(path);
 
 const doc_2 = TSV.parse(data);
-printSize(doc_2, "decompressed data:");
+printSize(doc_2, "TSV to JSON:");
 
 printMemoryUsage();
