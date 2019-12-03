@@ -20,6 +20,11 @@ Doesn't work
 
 ## Outcome
 
+TSV is faster and will reduce the file size slightly more.
+If the file size of wordsOnly.json is 0.78 MB - the compression rate is 60% for TSV, 47% for JsonArray. They are similar in terms of needing to parse (with `TSV.parse(data)` and `JSON.parse(data)`) although one requires an extra dependency (TSV) but the other takes a fraction more time to parse.
+
+TSVs are easy to reason about enough.
+
 ```js
 > node ./src/tsv.js
 
