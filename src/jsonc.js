@@ -1,22 +1,24 @@
 const fs = require("fs");
 const JSONC = require("jsoncomp");
-const { size, logMemoryUsage, fileName } = require("./utils");
+const {
+  printSize,
+  printMemoryUsage,
+  printFileSizeInMB,
+  fileName,
+  outPath
+} = require("./utils");
 const largeJson = require(fileName);
+const path = outPath("dataCompressed");
 const Base64 = require("B");
 
-Object.size = size;
-
 const doc = largeJson;
-console.log(Object.size(doc));
+printSize(doc);
 
 var data = JSONC.pack(largeJson, true);
 // const data = BSON.serialize(doc);
-console.log("data:", data);
-fs.writeFileSync("data", data);
-console.log(Object.size(data));
-// Deserialize the resulting Buffer
+printSize(data, "compressed");
+fs.writeFileSync(path, data);
+printFileSizeInMB(path);
 const doc_2 = BSON.deserialize(data);
-// console.log('doc_2:', doc_2);
-console.log(Object.size(doc_2));
-
-logMemoryUsage();
+printSize(doc_2, "decompressed");
+printMemoryUsage();

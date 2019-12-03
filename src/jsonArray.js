@@ -1,11 +1,16 @@
 const fs = require("fs");
-const { size, logMemoryUsage, fileName } = require("./utils");
-
-Object.size = size;
+const {
+  printSize,
+  printMemoryUsage,
+  printFileSizeInMB,
+  fileName,
+  outPath
+} = require("./utils");
+const path = outPath("dataArray.json");
 const doc = require(fileName);
-console.log("In memory size:", Object.size(doc));
+printSize(doc, "In memory");
 const data = doc;
+fs.writeFileSync(path, data);
+printFileSizeInMB(path);
 
-fs.writeFileSync("data.json", data);
-
-logMemoryUsage();
+printMemoryUsage();

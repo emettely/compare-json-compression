@@ -1,20 +1,24 @@
 const fs = require("fs");
 const BSON = require("bson");
-const { size, logMemoryUsage, fileName } = require("./utils");
+const {
+  printSize,
+  printMemoryUsage,
+  printFileSizeInMB,
+  fileName,
+  outPath
+} = require("./utils");
 const largeJson = require(fileName);
+const path = outPath("dataBson");
 
-Object.size = size;
-
+// start processing
 const doc = largeJson;
-console.log(Object.size(doc));
+printSize(doc, "In-memory size");
 const data = BSON.serialize(doc);
+printSize(data, "serialized");
+fs.writeFileSync(path, data);
+printFileSizeInMB(path);
 
-console.log("data:", data);
-fs.writeFileSync("data", data);
-console.log(Object.size(data));
-// Deserialize the resulting Buffer
 const doc_2 = BSON.deserialize(data);
-// console.log('doc_2:', doc_2);
-console.log(Object.size(doc_2));
+printSize(doc_2, "deserialized");
 
-logMemoryUsage();
+printMemoryUsage();

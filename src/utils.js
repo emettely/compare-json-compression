@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const size = obj => {
   var size = 0,
     key;
@@ -7,7 +9,14 @@ const size = obj => {
   return size;
 };
 
-const logMemoryUsage = () => {
+const printSize = (obj, msg = "") => {
+  if (msg) {
+    msg = msg + " ";
+  }
+  console.log(`${msg}${size(obj)}`);
+};
+
+const printMemoryUsage = () => {
   const used = process.memoryUsage();
   for (let key in used) {
     console.log(
@@ -17,5 +26,13 @@ const logMemoryUsage = () => {
 };
 
 const fileName = "../data/one_hour.json";
+const outPath = name => `../out/${name}`;
 
-export { logMemoryUsage, size, fileName };
+const printFileSizeInMB = file => {
+  const stats = fs.statSync(file);
+  const fileSizeInBytes = stats.size;
+  const fileSizeInMegabytes = fileSizeInBytes / 1000000.0;
+  console.log(`File size: ${fileSizeInMegabytes}`);
+};
+
+export { printMemoryUsage, printSize, printFileSizeInMB, fileName, outPath };

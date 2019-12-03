@@ -1,8 +1,12 @@
 const fs = require("fs");
 const json = require("big-json");
-const { size, logMemoryUsage, fileName } = require("./utils");
-
-Object.size = size;
+const {
+  printSize,
+  printMemoryUsage,
+  printFileSizeInMB,
+  fileName,
+  outPath
+} = require("./utils");
 
 const readStream = fs.createReadStream(fileName);
 const parseStream = json.createParseStream();
@@ -13,9 +17,10 @@ parseStream.on("data", function(pojo) {
   pojo.response.results.forEach(r => {
     r.alternatives[0].words.forEach(w => doc.push(w));
   });
-  console.log("In-memory size", Object.size(doc));
+
+  printSize(doc, "In-memory size");
 });
 
 readStream.pipe(parseStream);
 
-logMemoryUsage();
+printMemoryUsage();
