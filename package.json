@@ -11,6 +11,7 @@
   "dependencies": {
     "big-json": "^3.0.0",
     "bson": "^4.0.2",
+    "compression": "^1.7.4",
     "jsoncomp": "^1.6.1",
     "tsv": "^0.2.0"
   }

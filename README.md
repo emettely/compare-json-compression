@@ -26,9 +26,22 @@ If the file size of wordsOnly.json is 0.78 MB - the compression rate is 60% for 
 TSVs are easy to reason about enough.
 
 ```js
+> node ./src/gzip
+
+In-memory size 0.54 MB
+Stringify 1.55 MB
+Gzipped in memory 0.9 MB
+File size: 0.11 MB
+===========Memory Usage===========
+rss 42.37 MB
+heapTotal 21.88 MB
+heapUsed 13.54 MB
+external 2.59 MB
+==========Elapsed Time==========
+0 s, 121.631 ms
+
 > node ./src/tsv.js
 
-File size: 1.94 MB
 Just words In memory 0.54 MB
 TSV 0.61 MB
 File size: 0.31 MB
@@ -43,7 +56,6 @@ external 0.78 MB
 
 > node ./src/jsonArray.js
 
-File size: 1.94 MB
 Just words In memory 0.54 MB
 Stringified 0.82 MB
 File size: 0.41 MB
@@ -58,7 +70,6 @@ external 0.78 MB
 
 > node ./src/tsvStream.js
 
-File size: 1.94 MB
 Just words In memory 0.54 MB
 TSV: 0.61 MB
 File size: 0.31 MB
