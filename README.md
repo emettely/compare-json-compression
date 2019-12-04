@@ -1,4 +1,5 @@
 # Comparing memory usage and compression sizes of big JSON files
+This was done as part of [this investigation](https://github.com/bbc/digital-paper-edit-firebase/pull/3)
 
 ## Versions
 
@@ -26,7 +27,7 @@ Comparing TSV, Gzip and JSON Array using the 0.78 MB file of `wordsOnly.json`, G
 
 The compression rate is 60% for TSV, 47% for JsonArray, 85% for Gzip. They are similar in terms of needing to parse (with `TSV.parse(data)`, `JSON.parse(data)`, `const data = zlib.gunzip(gzipData)` + `JSON.parse(data)`). TSV requires an additional library (TSV) to do the parsing, whereas JSON and zlib comes with JS / NodeJS. The performance for Gzip, although it does need more memory to do the processing, is the fastest of the lot.
 
-TSVs are easy to reason about enough.
+For understanding the Memory Usage, see [here](https://www.dynatrace.com/news/blog/understanding-garbage-collection-and-hunting-memory-leaks-in-node-js/).
 
 ```js
 > node ./src/gzip
